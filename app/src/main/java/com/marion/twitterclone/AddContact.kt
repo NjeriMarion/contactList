@@ -3,6 +3,7 @@ package com.marion.twitterclone
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.marion.twitterclone.databinding.ActivityAddContactBinding
 import com.marion.twitterclone.databinding.ActivityMainBinding
@@ -22,14 +23,15 @@ class AddContact : AppCompatActivity() {
         setContentView(binding.root)
         binding.buttonSave.setOnClickListener {
             clearErrors()
-//            validation()
-            if(!validation()){
+            if(validation()){
+                Toast.makeText(this, "${binding.etName.text.toString()} Added", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             }
-//            else{
-//                val intent = Intent(this, MainActivity::class.java)
-//                startActivity(intent)}
+            else{
+                val intent=Intent(this, AddContact::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -58,7 +60,6 @@ class AddContact : AppCompatActivity() {
             error = true
         }
         if (!error) {
-            binding.tvresult.text= "Contact has been added successfully"
             output = true
         }
         return output
